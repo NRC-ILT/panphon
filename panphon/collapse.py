@@ -20,8 +20,7 @@ class Collapser(object):
 
     def _load_table(self, tablename: str):
         fn = os.path.join('data', tablename)
-        fn = files('panphon').joinpath(fn)
-        with open(fn, 'r', encoding="utf-8") as f:
+        with files('panphon').joinpath(fn).open('r', encoding="utf-8") as f:
             rules = []
             table = yaml.load(f.read(), Loader=yaml.FullLoader)
             for rule in table:
