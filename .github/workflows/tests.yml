@@ -1,0 +1,31 @@
+name: Run unit tests
+on:
+    - push
+    - pull_request
+    - workflow_call
+
+permissions:
+    contents: read
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    matrix-tests:
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest, windows-latest, macos-latest]
+                python-version:
+                    ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        runs-on: ${{ matrix.os }}
+        steps:
+            - uses: actions/checkout@v5
+              with:
+                  persist-credentials: false
+            - uses: actions/setup-python@v6
+              with:
+                  python-version: ${{ matrix.python-version }}
+            - run: pip install -e .
+            - run: python -m unittest discover panphon/test
