@@ -14,7 +14,7 @@ class Segment(object):
         Args:
             names (list): ordered list of feature names
             features (dict): name-value pairs for specified features
-            ftstr (unicode): a string, each /(+|0|-)\w+/ sequence of which is
+            ftstr (unicode): a string, each /(+|0|-)\\w+/ sequence of which is
                              interpreted as a feature specification
             weights (float): order list of feature weights/saliences
             """
