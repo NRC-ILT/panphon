@@ -1,5 +1,15 @@
 # PanPhon
 
+## NRC-ILT fork
+
+This fork of panphon aims to support the needs of the National Research Council Canada's Indigenous Language Technologies (NRC ILT) projects, applying minimal patches to Panphon for our projects to work on all OSes and Python versions we support.
+
+Our fork can be installed via `pip install ilt-panphon` but it is a drop-in replacement the regular `panphon` package.
+
+You should continue to cite and give credit to the original author if you use our fork.
+
+Version numbers in `ilt-panphon` will respect `panphon`'s major.minor in terms of features. When we create patches we need, we will increment the patch level, or use a sub-patch level if the logical patch level is already used in `panphon`. E.g., if you want the features of `panphon==0.21.2` with our patches, you can specify `ilt-panphon>=0.21.2,<0.22`.
+
 ## Citing PanPhon
 
 If you use PanPhon in research, please cite the [following paper](https://www.aclweb.org/anthology/C/C16/C16-1328.pdf):
