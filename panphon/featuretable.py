@@ -34,7 +34,8 @@ class SegmentSorter:
         return self._segments
 
     def sort_segments(self):
-        self.segments.sort(key=self.segment_key)
+        self._segments.sort(key=self.segment_key)
+        self._sorted = True
 
     @staticmethod
     def segment_key(segment_tuple):
