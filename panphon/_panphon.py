@@ -5,7 +5,6 @@ import unicodedata
 
 import os.path
 from functools import reduce
-from importlib.resources import files
 
 import numpy
 import regex as re
@@ -14,6 +13,7 @@ import unicodecsv as csv
 from panphon import featuretable
 
 from . import xsampa
+from .files import files
 
 from panphon.errors import SegmentError
 

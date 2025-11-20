@@ -2,12 +2,11 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import os.path
-from importlib.resources import files
 
 import yaml
 
-from panphon import _panphon
-from panphon import permissive
+from panphon import _panphon, permissive
+from .files import files
 
 
 class Collapser(object):
