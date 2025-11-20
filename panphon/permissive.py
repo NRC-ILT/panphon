@@ -66,7 +66,7 @@ class PermissiveFeatureTable(_panphon.FeatureTable):
 
     def _read_dias(self, dias):
         prefix, postfix = {}, {}
-        with dias.open('r', 'utf-8') as f:
+        with dias.open('r', encoding='utf-8') as f:
             defs = yaml.load(f.read(), Loader=yaml.FullLoader)
             for dia in defs['diacritics']:
                 if dia['position'] == 'pre':
