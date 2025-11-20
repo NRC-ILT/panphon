@@ -3,7 +3,8 @@ from __future__ import absolute_import, print_function, unicode_literals
 import regex as re
 import unicodecsv as csv
 import os.path
-from importlib.resources import files
+
+from .files import files
 
 class XSampa(object):
     def __init__(self, delimiter=' '):

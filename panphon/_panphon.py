@@ -4,13 +4,13 @@ from __future__ import absolute_import, print_function, unicode_literals
 import os.path
 import unicodedata
 from functools import reduce
-from importlib.resources import files
 
 import numpy as np
 import regex as re
 import unicodecsv as csv
 
 from . import xsampa
+from .files import files
 
 # logging.basicConfig(level=logging.DEBUG)
 

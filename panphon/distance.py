@@ -3,7 +3,6 @@ from __future__ import (absolute_import, division, print_function,
 
 import os.path
 from functools import partial
-from importlib.resources import files
 
 import editdistance
 import numpy as np
@@ -11,6 +10,7 @@ import regex as re
 import yaml
 
 from . import _panphon, featuretable, permissive, xsampa
+from .files import files
 
 
 def zerodiviszero(f):

@@ -3,13 +3,13 @@ from __future__ import absolute_import, print_function, unicode_literals
 import codecs
 import copy
 import os.path
-from importlib.resources import files
 
 import regex as re
 import unicodecsv as csv
 import yaml
 
 from . import _panphon, xsampa
+from .files import files
 
 
 def flip(s):

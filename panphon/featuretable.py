@@ -8,12 +8,12 @@ import unicodedata
 import collections
 
 import numpy
-from importlib.resources import files
 
 import regex as re
 import csv
 
 from . import xsampa
+from .files import files
 from .segment import Segment
 from functools import reduce
 
