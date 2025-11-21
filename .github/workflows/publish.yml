@@ -1,0 +1,65 @@
+name: Publish to PyPI
+on:
+    push:
+        tags:
+            - v[0-9]+.[0-9]+.[0-9]+
+
+permissions:
+    contents: read
+
+jobs:
+    tests:
+        uses: ./.github/workflows/tests.yml
+
+    build:
+        runs-on: ubuntu-latest
+        needs: tests
+        steps:
+            - uses: actions/checkout@v5
+              with:
+                  persist-credentials: false
+            - uses: actions/setup-python@v6
+              with:
+                  python-version: "3.x"
+            - run: pip install build
+            - run: python -m build --sdist --wheel
+            - uses: actions/upload-artifact@v5
+              with:
+                  name: dist-files
+                  path: dist/*
+
+    publish:
+        needs: build
+        runs-on: ubuntu-latest
+        environment: testpypi
+        permissions:
+            id-token: write
+        steps:
+            - uses: actions/download-artifact@v5
+              with:
+                  name: dist-files
+                  path: dist/
+            - name: Publish package distributions to TestPyPI
+              uses: pypa/gh-action-pypi-publish@release/v1
+              with:
+                  repository-url: https://test.pypi.org/legacy/
+
+    # "release" job adapted from Source - https://stackoverflow.com/a/75679739
+    # Posted by Benjamin W., modified by community. See post 'Timeline' for change history
+    # Retrieved 2025-11-21, License - CC BY-SA 4.0
+    release:
+        needs: publish
+        runs-on: ubuntu-latest
+        name: Release pushed tag
+        permissions:
+            contents: write
+        steps:
+            - name: Create release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  tag: ${{ github.ref_name }}
+              run: |
+                  gh release create "$tag" \
+                      --repo="$GITHUB_REPOSITORY" \
+                      --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
+                      --generate-notes
