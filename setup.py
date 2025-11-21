@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='ilt-panphon',
-      version='0.21.3',
+      version='0.21.4',
       description='Tools for using the International Phonetic Alphabet with phonological features',
       url='https://github.com/nrc-ilt/panphon',
       long_description=open('README.md', encoding='utf-8').read(),
