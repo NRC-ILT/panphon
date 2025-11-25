@@ -31,7 +31,7 @@ jobs:
     publish:
         needs: build
         runs-on: ubuntu-latest
-        environment: testpypi
+        environment: pypi
         permissions:
             id-token: write
         steps:
@@ -39,10 +39,8 @@ jobs:
               with:
                   name: dist-files
                   path: dist/
-            - name: Publish package distributions to TestPyPI
+            - name: Publish package distributions to PyPI
               uses: pypa/gh-action-pypi-publish@release/v1
-              with:
-                  repository-url: https://test.pypi.org/legacy/
 
     # "release" job adapted from Source - https://stackoverflow.com/a/75679739
     # Posted by Benjamin W., modified by community. See post 'Timeline' for change history
