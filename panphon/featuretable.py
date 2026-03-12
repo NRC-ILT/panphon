@@ -8,7 +8,7 @@ import unicodedata
 import collections
 
 import numpy
-import pkg_resources
+from importlib.resources import files
 
 import regex as re
 import unicodecsv as csv
@@ -40,7 +40,7 @@ class FeatureTable(object):
         return unicodedata.normalize('NFD', data)
 
     def _read_bases(self, fn, weights):
-        fn = pkg_resources.resource_filename(__name__, fn)
+        fn = files('panphon').joinpath(fn)
         segments = []
         with open(fn, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
@@ -57,7 +57,7 @@ class FeatureTable(object):
         return segments, seg_dict, names
 
     def _read_weights(self, weights_fn):
-        weights_fn = pkg_resources.resource_filename(__name__, weights_fn)
+        weights_fn = files('panphon').joinpath(weights_fn)
         with open(weights_fn, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
             next(reader)

@@ -5,10 +5,9 @@ import unicodedata
 
 import os.path
 from functools import reduce
+from importlib.resources import files
 
 import numpy
-import pkg_resources
-
 import regex as re
 import unicodecsv as csv
 
@@ -136,8 +135,7 @@ class FeatureTable(object):
         self.seg_dict, a dictionary mapping from unicode segments and sets of
         feature tuples.
         """
-        filename = pkg_resources.resource_filename(
-            __name__, filename)
+        filename = files('panphon').joinpath(filename)
         segments = []
         with open(filename, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
@@ -152,8 +150,7 @@ class FeatureTable(object):
         return segments, seg_dict, names
 
     def _read_weights(self, filename=os.path.join('data', 'feature_weights.csv')):
-        filename = pkg_resources.resource_filename(
-            __name__, filename)
+        filename = files('panphon').joinpath(filename)
         with open(filename, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
             next(reader)
