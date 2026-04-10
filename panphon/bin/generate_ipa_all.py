@@ -4,10 +4,9 @@ from __future__ import print_function, unicode_literals
 import argparse
 import codecs
 import copy
+import csv
 
 import yaml
-
-import unicodecsv as csv
 
 
 class Segment(object):
@@ -105,8 +104,8 @@ class Combination(object):
 
 def read_ipa_bases(ipa_bases):
     segments = []
-    with open(ipa_bases, 'rb') as f:
-        dictreader = csv.DictReader(f, encoding='utf=8')
+    with open(ipa_bases, encoding='utf=8') as f:
+        dictreader = csv.DictReader(f)
         for record in dictreader:
             form = record['ipa']
             features = {k: v for k, v in record.items() if k != 'ipa'}
@@ -142,11 +141,11 @@ def sort_all_segments(sort_order, all_segments):
 
 
 def write_ipa_all(ipa_bases, ipa_all, all_segments, sort_order):
-    with open(ipa_bases, 'rb') as f:
-        reader = csv.reader(f, encoding='utf-8')
+    with open(ipa_bases, encoding='utf-8') as f:
+        reader = csv.reader(f)
         fieldnames = next(reader)
-    with open(ipa_all, 'wb') as f:
-        writer = csv.DictWriter(f, encoding='utf-8', fieldnames=fieldnames)
+    with open(ipa_all, 'w', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writerow({k: k for k in fieldnames})
         all_segments_list = sort_all_segments(sort_order, all_segments)
         for segment in all_segments_list:

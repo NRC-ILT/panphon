@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from typing import Any, Pattern
 
+import csv
 import os.path
 import unicodedata
 import collections
@@ -10,7 +11,6 @@ import collections
 import numpy
 
 import regex as re
-import csv
 
 from . import xsampa
 from .files import files
@@ -77,7 +77,7 @@ class FeatureTable(object):
     def _read_bases(self, fn: str, weights):
         fn  = files('panphon').joinpath(fn)
         segments = []
-        with open(fn, encoding="utf-8") as f:
+        with open(fn, encoding='utf-8') as f:
             reader = csv.reader(f)
             header = next(reader)
             names = header[1:]
@@ -93,7 +93,7 @@ class FeatureTable(object):
 
     def _read_weights(self, weights_fn: str) -> list[float]:
         weights_fn = files('panphon').joinpath(weights_fn)
-        with open(weights_fn, encoding="utf-8") as f:
+        with open(weights_fn, encoding='utf-8') as f:
             reader = csv.reader(f)
             next(reader)
             weights = [float(x) for x in next(reader)]

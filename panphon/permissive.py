@@ -2,10 +2,10 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 import codecs
 import copy
+import csv
 import os.path
 
 import regex as re
-import unicodecsv as csv
 import yaml
 
 from . import _panphon, xsampa
@@ -55,8 +55,8 @@ class PermissiveFeatureTable(_panphon.FeatureTable):
         self.weights = self._read_weights()
 
     def _read_ipa_bases(self, fn):
-        with files('panphon').joinpath(fn).open('rb') as f:
-            reader = csv.reader(f, encoding='utf-8', delimiter=str(','))
+        with files('panphon').joinpath(fn).open(encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=str(','))
             names = next(reader)[1:]
             bases = {}
             for row in reader:
@@ -88,8 +88,8 @@ class PermissiveFeatureTable(_panphon.FeatureTable):
         return self.seg_regex
 
     def _read_weights(self, filename=os.path.join('data', 'feature_weights.csv')):
-        with files('panphon').joinpath(filename).open('rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
+        with files('panphon').joinpath(filename).open(encoding='utf-8') as f:
+            reader = csv.reader(f)
             next(reader)
             weights = [float(x) for x in next(reader)]
         return weights
