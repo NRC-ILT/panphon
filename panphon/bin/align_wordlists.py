@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
-import unicodecsv as csv
 import argparse
+import csv
 import panphon
 import Levenshtein
 import munkres
@@ -43,9 +43,9 @@ def score(indices):
 
 
 def main(wordlist1, wordlist2, dist_funcs):
-    with open(wordlist1, 'rb') as file_a, open(wordlist2, 'rb') as file_b:
-        reader_a = csv.reader(file_a, encoding='utf-8')
-        reader_b = csv.reader(file_b, encoding='utf-8')
+    with open(wordlist1, encoding='utf-8') as file_a, open(wordlist2, encoding='utf-8') as file_b:
+        reader_a = csv.reader(file_a)
+        reader_b = csv.reader(file_b)
         print('Reading word lists...')
         words = zip([(w, g) for (g, w) in reader_a],
                     [(w, g) for (g, w) in reader_b])

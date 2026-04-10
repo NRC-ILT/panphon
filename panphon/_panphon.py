@@ -6,9 +6,9 @@ import unicodedata
 import os.path
 from functools import reduce
 
+import csv
 import numpy
 import regex as re
-import unicodecsv as csv
 
 from panphon import featuretable
 
@@ -137,8 +137,8 @@ class FeatureTable(object):
         """
         filename = files('panphon').joinpath(filename)
         segments = []
-        with open(filename, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
+        with open(filename, encoding='utf-8') as f:
+            reader = csv.reader(f)
             header = next(reader)
             names = header[1:]
             for row in reader:
@@ -151,8 +151,8 @@ class FeatureTable(object):
 
     def _read_weights(self, filename=os.path.join('data', 'feature_weights.csv')):
         filename = files('panphon').joinpath(filename)
-        with open(filename, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
+        with open(filename, encoding='utf-8') as f:
+            reader = csv.reader(f)
             next(reader)
             weights = [float(x) for x in next(reader)]
         return weights
